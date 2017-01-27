@@ -1,14 +1,38 @@
-version: '2'
+base:
+  image: 10.100.198.200:5000/taskapi
+  ports:
+    - 8080
+  environment:
+    - SERVICE_NAME=taskapi
 
-services: 
-        taskapi.aspnetcore.web:
-                image: davood.khan/taskapicorelinux
-                ports:
-                        - "80"
-                links:
-                        - db: db
+app:
+  extends:
+    service: base
+  links:
+    - db:db
 
-        db:
-                container_name: taskapi.database
-                image: mongo
+app-blue:
+  extends:
+    service: base
+  environment:
+    - SERVICE_NAME=taskapi-blue
+  links:
+    - db:db
+
+app-green:
+  extends:
+    service: base
+  environment:
+    - SERVICE_NAME=taskapi-green
+  links:
+    - db:db
+
+applocal:
+  extends:
+    service: base
+  links:
+    - db:db
+
+db:
+  image: mongo
                      

@@ -1,5 +1,5 @@
-FROM microsoft/aspnetcore-build
-COPY appsource/TaskAPI.AspNetCore.Web /app
+FROM microsoft/aspnetcore:1.0.1
+COPY TaskOutput /app
 WORKDIR /app 
-RUN dotnet restore
-RUN dotnet publish --output /out/ --configuration Release
+ENTRYPOINT ["dotnet", "app.dll"]
+EXPOSE 80

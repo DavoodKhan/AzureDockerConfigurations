@@ -17,4 +17,10 @@ services:
     volumes:
       - ./tests:/tests
     environment:
-      - TEST_TYPE=all         
+      - TEST_TYPE=all
+  integ:
+    image: 10.100.198.200:5000/taskapi-tests
+    volumes:
+     - ./tests:/tests
+    environment:
+     - TEST_TYPE=integ       
